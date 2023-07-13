@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <style>
+        .container {
+            display: flex;
+        }
+
+        .sortable-col {
+            flex: 1;
+            padding-right: 20px;
+        }
+
+        .list-col {
+            flex: 1;
+        }
+
+        .sortable-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .sortable-item {
+            background-color: #f4f4f4;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            padding: 10px;
+            cursor: grab;
+        }
+
+        .sortable-item.active {
+            background-color: #e9ecef;
+        }
+
+        .sortable-item .content {
+            display: none;
+        }
+
+        .sortable-item.active .content {
+            display: block;
+        }
+
+        .list-item {
+            margin-bottom: 10px;
+        }
+
+        .stepwizard-step {
+            display: inline-block;
+            text-align: center;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            border: 1px solid #ccc;
+            border-radius: 50%;
+            margin-right: 10px;
+            background-color: #f4f4f4;
+            cursor: pointer;
+        }
+
+        .stepwizard-step.active {
+            background-color: #337ab7;
+            color: #fff;
+            border-color: #337ab7;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="sortable-col">
+            <h3>Sortable List</h3>
+            <ul id="sortable" class="sortable-list">
+                <li class="sortable-item">
+                    <div class="header">
+                        <strong>Card 1 <input checked="" class="toggle__input" id="myToggle1" type="checkbox"
+                                name="pcap[]" value="1"></strong>
+                    </div>
+                </li>
+                <li class="sortable-item">
+                    <div class="header">
+                        <strong>Card 2 <input checked="" class="toggle__input" id="myToggle2" type="checkbox"
+                                name="pcap[]" value="1"></strong>
+                    </div>
+                </li>
+                <li class="sortable-item">
+                    <div class="header">
+                        <strong>Card 3 <input checked="" class="toggle__input" id="myToggle2" type="checkbox"
+                                name="pcap[]" value="1"></strong>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="list-col">
+            <h3>List</h3>
+            <div id="list-container">
+                <!-- Placeholder -->
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+    <script>
+        $(function () {
+            $("#sortable").sortable({
+                update: function (event, ui) {
+                    updateList();
+                }
+            });
+            $("#sortable").disableSelection();
+
+            $(".sortable-item").on("click", function () {
+                updateList();
+            });
+
+            function updateList() {
+                var listContainer = $("#list-container");
+                listContainer.empty();
+
+                $(".sortable-item").each(function (index) {
+                    var isChecked = $(this).find('.toggle__input').prop('checked');
+                    if (isChecked) {
+                        var listItem = $('<div class="list-item"></div>');
+                        var text = $(this).find(".header").text();
+
+                        listItem.text(text);
+                        listContainer.append(listItem);
+                    }
+                });
+
+                if (listContainer.children().length > 0) {
+                    listContainer.show();
+                } else {
+                    listContainer.hide();
+                }
+            }
+
+            updateList();
+        });
+
+
+    </script>
+</body>
+
+</html>

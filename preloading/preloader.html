@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">	
+<link rel="stylesheet" href="preloading.css">
+	<style>
+		.drag-item {
+			background-color: #f4f4f4;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			margin-bottom: 10px;
+			padding: 10px;
+			cursor: grab;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+
+<div class="preloader" style="display: none;"><div class="preloader" style="display: none;"><div class="preloader-container"><span class="preloader-text">Processing Data . . . !</span><div class="preloader-animation"></div></div></div></div>
+
+
+</div>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>	
+<script src="preloading.min.js"></script>
+
+	<script>
+$('.preloader').fadeIn();
+</script>
+</body>
+</html>

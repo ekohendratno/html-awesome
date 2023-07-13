@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Checkbox Example</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+  <div class="container">
+    <h2>List Checkbox</h2>
+    <div class="checkbox">
+      <label><input type="checkbox" class="checkbox-input">Checkbox 1</label>
+    </div>
+    <div class="checkbox">
+      <label><input type="checkbox" class="checkbox-input">Checkbox 2</label>
+    </div>
+    <div class="checkbox">
+      <label><input type="checkbox" class="checkbox-input">Checkbox 3</label>
+    </div>
+    <div class="checkbox">
+      <label><input type="checkbox" class="checkbox-input">Checkbox 4</label>
+    </div>
+    <div class="checkbox">
+      <label><input type="checkbox" class="checkbox-input">Checkbox 5</label>
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function() {
+      $('.checkbox-input').on('change', function() {
+        var checkedCount = $('.checkbox-input:checked').length;
+        if (checkedCount > 2) {
+          $(this).prop('checked', false); // Uncheck the current checkbox
+        } else {
+          $('.checkbox-input:checked').not(this).prop('checked', false); // Uncheck other checkboxes
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

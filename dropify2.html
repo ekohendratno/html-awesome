@@ -1,0 +1,65 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css">
+
+<div class="container">
+
+<input type="file" id="files" class="dropify" name="files" data-max-file-size="1M" data-height="140" data-show-errors="true" data-allowed-file-extensions='["pdf"]' />
+
+<button type="submit" id="continue-dropify" class="font-medium btn btn-block btn-pks-secondary" disabled>Continue</button>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+    $('.dropify').dropify({
+        messages: {
+            'default': 'Choose or drop your spk letter<br/>format .pdf',
+            'replace': 'Choose or drop your spk letter<br/>format .pdf',
+            'remove': 'Delete',
+            'error': 'Oh, it seems like there is something wrong'
+        },
+        tpl: {
+            clearButton: '<button type="button" class="dropify-clear">{{ remove }}</button>'
+        },
+        error: {
+            'fileSize': 'The file size is too big ({{ value }} max).',
+            'fileExtension': 'Invalid file extension. Only PDF files are allowed.'
+        }
+    });
+
+    $('.dropify').on('change', function() {
+        var submitButton = document.getElementById("continue-dropify");
+        if (this.files.length > 0) {
+            var file = this.files[0];
+            var fileSize = file.size;
+            var fileType = file.type;
+
+            if (fileSize > 1048576) { // 1MB = 1048576 bytes
+                swal({
+                    title: "Error",
+                    text: "Only files with a maximum size of 1MB are allowed.",
+                    icon: "error",
+                    button: "OK"
+                });
+                this.value = null; // Clear file input
+                submitButton.disabled = true;
+            } else if (fileType !== "application/pdf") {
+                swal({
+                    title: "Error",
+                    text: "Only PDF files are allowed.",
+                    icon: "error",
+                    button: "OK"
+                });
+                this.value = null; // Clear file input
+                submitButton.disabled = true;
+            } else {
+                submitButton.disabled = false;
+            }
+        } else {
+            submitButton.disabled = true;
+        }
+    });
+</script>

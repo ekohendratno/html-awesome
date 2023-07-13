@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Loop Checkbox Value in jQuery</title>
+
+  <style type="text/css">
+    .result-wrapper {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <label for="industry">
+      Industry
+      <input class="checkbox single" type="checkbox" value="industry" name="industry" id="industry" checked>
+    </label>
+    <label for="office">
+      Office
+      <input class="checkbox single" type="checkbox" value="office" name="office" id="office" checked>
+    </label>
+    <label for="all">
+      All
+      <input class="checkbox all" type="checkbox" value="all" name="all" id="all" checked>
+    </label>
+  </div>
+
+  <div class="item industry">
+    <h4>
+      Industry
+    </h4>
+  </div>
+  <div class="item office">
+    <h4>
+      Office
+    </h4>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+
+      $(".checkbox").change(function () {
+        var $self = $(this),
+          checkboxVal = $self.val(),
+          selector = checkboxVal === "all" ? ".item" : ".item." + checkboxVal;
+
+        // Show or hide divs based on selector, for example:
+        // $(".item").show() will show all items while
+        // $(".item.industry").show() will only show the industry div
+        if ($self.is(":checked")) {
+          $(selector).show();
+        } else {
+          $(selector).hide();
+        }
+
+        // This part is optional but it feels awkward without.
+        // If the changed checkbox is the "all" checkbox, we want all checkboxes
+        // to be checked. Vice versa if we click a single checkbox we want
+        // the "all" checkbox to react accordingly
+        if (checkboxVal === "all") {
+          $(".checkbox.single").prop("checked", $self.is(":checked"));
+        } else {
+          if ($(".checkbox.single:checked").length === $(".checkbox.single").length) {
+            $(".checkbox.all").prop("checked", true);
+          } else {
+            $(".checkbox.all").prop("checked", false);
+          }
+        }
+      });
+
+
+    });
+  </script>
+</body>
+
+</html>
